@@ -1,5 +1,8 @@
 # Python Microservices Demo ✅
 
+[![CI](https://github.com/hirenpattani/python-microservices-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/hirenpattani/python-microservices-demo/actions/workflows/ci.yml)
+
+
 A minimal, opinionated microservices demo using FastAPI that demonstrates: type hints, Pydantic models, dependency injection, unit testing, logging, Docker, and CI.
 
 ## Services
