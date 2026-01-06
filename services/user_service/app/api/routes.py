@@ -1,5 +1,3 @@
-"""User API routes."""
-
 from fastapi import APIRouter, Depends, HTTPException
 from libs.common.models import UserCreate, User
 from services.user_service.app.crud import UserRepository

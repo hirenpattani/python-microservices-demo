@@ -1,6 +1,5 @@
-"""In-memory repository for product objects (demo only)."""
-
 from typing import Dict, List, Optional
+
 from libs.common.models import Product, ProductCreate
 from libs.common.utils import generate_id
 

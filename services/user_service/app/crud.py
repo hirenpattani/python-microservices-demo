@@ -1,6 +1,5 @@
-"""In-memory repository for user objects (demo only)."""
-
 from typing import Dict, List, Optional
+
 from libs.common.models import User, UserCreate
 from libs.common.utils import generate_id
 

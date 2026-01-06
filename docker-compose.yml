@@ -3,8 +3,8 @@ services:
   user_service:
     build: ./services/user_service
     ports:
-      - "8001:8001"
+      - "8001:8000"
   product_service:
     build: ./services/product_service
     ports:
-      - "8002:8002"
+      - "8002:8000"
