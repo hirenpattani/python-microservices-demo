@@ -1,8 +1,13 @@
 import time
 import uuid
+import asyncio
 
+import grpc
 from fastapi import FastAPI, Request
 from services.user_service.app.api.routes import router as user_router
+from services.user_service.app.crud import UserRepository
+from services.user_service.app.grpc_service import UserServicer
+from services.user_service.app import user_pb2_grpc
 from libs.common.logging import get_logger
 from libs.common.metrics import Metrics
 from libs.common.context import set_tracking_id
@@ -74,6 +79,34 @@ def create_app() -> FastAPI:
         return app.state.metrics.snapshot()
 
     return app
+
+
+async def serve_grpc(port: int = 50051):
+    """Start gRPC server for User service.
+
+    Args:
+        port: Port to listen on (default 50051).
+    """
+    logger = get_logger("user_service.grpc")
+    repo = UserRepository()
+    servicer = UserServicer(repo)
+
+    server = grpc.aio.server()
+    user_pb2_grpc.add_UserServiceServicer_to_server(servicer, server)
+    server.add_insecure_port(f"[::]:{port}")
+
+    await server.start()
+    logger.info(f"gRPC server started on port {port}")
+    await server.wait_for_termination()
+
+
+def run_grpc_server(port: int = 50051):
+    """Run gRPC server (blocking).
+
+    Args:
+        port: Port to listen on (default 50051).
+    """
+    asyncio.run(serve_grpc(port))
 
 
 app = create_app()

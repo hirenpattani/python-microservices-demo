@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package user_service;
+
+message UserCreateRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message ListUsersRequest {}
+
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+message UserExistsRequest {
+  string user_id = 1;
+}
+
+message UserExistsResponse {
+  bool exists = 1;
+}
+
+service UserService {
+  rpc CreateUser(UserCreateRequest) returns (User) {}
+  rpc GetUser(GetUserRequest) returns (User) {}
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
+  rpc UserExists(UserExistsRequest) returns (UserExistsResponse) {}
+}
